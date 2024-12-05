@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                Il y a {{ categories | length }}
+                {% if categories | length > 1 %}catégorie
+                {% else %}catégories
+                {% endif %}
+                actuellement.
+            </h1>
+            <a class="btn btn-success" href="{{ path('create_category') }}">Créer une catégorie</a>
+        </div>
+
+        {% for category in categories %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">{{ category.name }}</h2>
+                    <p class="card-text">{{ category.description }}</p>
+                    <div class="d-flex">
+                        <a class="btn btn-warning me-2"
+                           href="{{ path('update_category', {id: category.id}) }}">
+                            Modifier
+                        </a>
+                        <a class="btn btn-danger" href="{{ path('delete_category', {id: category.id}) }}">
+                            Supprimer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-muted">Aucune catégorie trouvée. Cliquez sur "Créer une catégorie" pour en ajouter
+                un.</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
