@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -34,6 +35,51 @@ class Event
 
     #[ORM\Column]
     private ?int $category_id = null;
+
+    #[ORM\ManyToOne(targetEntity: Room::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Room $room = null;
+
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    #[ORM\ManyToOne(targetEntity: Animator::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Animator $animator = null;
+
+    public function getRoom(): ?Room
+    {
+        return $this->room;
+    }
+
+    public function setRoom(?Room $room): static
+    {
+        $this->room = $room;
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getAnimator(): ?Animator
+    {
+        return $this->animator;
+    }
+
+    public function setAnimator(?Animator $animator): static
+    {
+        $this->animator = $animator;
+        return $this;
+    }
 
     public function getId(): ?int
     {

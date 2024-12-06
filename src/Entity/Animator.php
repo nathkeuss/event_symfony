@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AnimatorRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AnimatorRepository::class)]
@@ -24,6 +25,18 @@ class Animator
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+    #[ORM\OneToMany(mappedBy: 'animator', targetEntity: Event::class)]
+    private Collection $events;
+
+    public function getEvents(): Collection {
+        return $this->events;
+    }
+
+    public function setEvents(Collection $events): self {
+        $this->events = $events;
+        return $this;
+    }
 
     public function getId(): ?int
     {

@@ -36,7 +36,7 @@ class EstablishmentController extends AbstractController
         if ($establishment_form->isSubmitted()) {
             $entityManager->persist($establishment);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Etablissement bien créé.');
             return $this->redirectToRoute('app_establishment');
         }
 

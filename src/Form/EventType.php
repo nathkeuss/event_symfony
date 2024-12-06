@@ -35,21 +35,21 @@ class EventType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'form-label'],
             ])
-            ->add('room_id', EntityType::class, [
+            ->add('room', EntityType::class, [
                 'class' => Room::class,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Salle',
                 'label_attr' => ['class' => 'form-label'],
             ])
-            ->add('animator_id', EntityType::class, [
+            ->add('animator', EntityType::class, [
                 'class' => Animator::class,
-                'choice_label' => 'name',
+                'choice_label' => 'firstname',
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Animateur',
                 'label_attr' => ['class' => 'form-label'],
             ])
-            ->add('category_id', EntityType::class, [
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control'],

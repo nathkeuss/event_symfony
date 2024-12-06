@@ -8,35 +8,42 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>
                 Il y a {{ events | length }}
-                {% if events | length > 1 %}événements
-                {% else %}événement
+                {% if events | length > 1 %} événements
+                {% else %} événement
                 {% endif %}
                 actuellement.
             </h1>
-            <a class="btn btn-success" href="{{ path('create_event') }}">Ajouter un énévement</a>
+            <a class="btn btn-success" href="{{ path('create_event') }}">Ajouter un événement</a>
         </div>
 
         {% for event in events %}
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title">{{ event.title }}</h2>
-                    <h4 class="card-subtitle mb-2 text-muted">Début :{{ event.start_time }}</h4>
-                    <h4 class="card-subtitle mb-2 text-muted">Fin :{{ event.end_time }}</h4>
+                    <h3 class="card-title">Salle : {{ event.room.name }}</h3>
+                    <h3>Animateur : {{ event.animator.firstname }}</h3>
+                    <h3>Catégorie : {{ event.category.name }}</h3>
+                    <h4 class="card-subtitle mb-2 text-muted">
+                        Début : {{ event.startTime | date('d/m/Y H:i') }}
+                    </h4>
+                    <h4 class="card-subtitle mb-2 text-muted">
+                        Fin : {{ event.endTime | date('d/m/Y H:i') }}
+                    </h4>
                     <p class="card-text">{{ event.description }}</p>
                     <div class="d-flex">
                         <a class="btn btn-warning me-2"
                            href="{{ path('update_event', {id: event.id}) }}">
                             Modifier
                         </a>
-                        <a class="btn btn-danger" href="{{ path('delete_event', {id: event.id}) }}">
+                        <a class="btn btn-danger"
+                           href="{{ path('delete_event', {id: event.id}) }}">
                             Supprimer
                         </a>
                     </div>
                 </div>
             </div>
         {% else %}
-            <p class="text-muted">Aucun événement trouvé. Cliquez sur "Ajouter un événement" pour en ajouter
-                un.</p>
+            <p class="text-muted">Aucun événement trouvé. Cliquez sur "Ajouter un événement" pour en ajouter un.</p>
         {% endfor %}
     </div>
 

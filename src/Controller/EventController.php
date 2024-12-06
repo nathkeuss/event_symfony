@@ -34,9 +34,10 @@ class EventController extends AbstractController
         $event_form->handleRequest($request);
 
         if ($event_form->isSubmitted()) {
+
             $entityManager->persist($event);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Evénement bien créé.');
             return $this->redirectToRoute('app_event');
         }
 

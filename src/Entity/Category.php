@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +20,18 @@ class Category
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Event::class)]
+    private Collection $events;
+
+    public function getEvents(): Collection {
+        return $this->events;
+    }
+
+    public function setEvents(Collection $events): self {
+        $this->events = $events;
+        return $this;
+    }
 
     public function getId(): ?int
     {

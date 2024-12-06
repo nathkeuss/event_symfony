@@ -35,7 +35,7 @@ class RoomController extends AbstractController
         if ($room_form->isSubmitted()) {
             $entityManager->persist($room);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Salle bien créée.');
             return $this->redirectToRoute('app_establishment');
         }
 

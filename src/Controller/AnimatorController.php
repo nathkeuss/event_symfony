@@ -35,7 +35,7 @@ class AnimatorController extends AbstractController
         if ($animator_form->isSubmitted()) {
             $entityManager->persist($animator);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Animateur bien ajouté.');
             return $this->redirectToRoute('app_animator');
         }
 

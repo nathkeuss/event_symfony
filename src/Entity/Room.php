@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RoomRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
@@ -17,6 +18,9 @@ class Room
     #[ORM\JoinColumn(nullable: false)]
     private ?Establishment $establishment = null;
 
+    #[ORM\OneToMany(mappedBy: 'room', targetEntity: Event::class)]
+    private Collection $events;
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -26,6 +30,14 @@ class Room
     #[ORM\Column]
     private ?int $establishment_id = null;
 
+    public function getEvents(): Collection {
+        return $this->events;
+    }
+
+    public function setEvents(Collection $events): self {
+        $this->events = $events;
+        return $this;
+    }
     public function getId(): ?int
     {
         return $this->id;
