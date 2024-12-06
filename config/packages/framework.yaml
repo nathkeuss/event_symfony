@@ -5,6 +5,7 @@ framework:
     # Note that the session will be started ONLY if you read or write from it.
     session: true
 
+    #image_directory: '%kernel.project_dir%/public/assets/images'
     #esi: true
     #fragments: true
 

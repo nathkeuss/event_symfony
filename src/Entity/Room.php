@@ -15,11 +15,13 @@ class Room
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Establishment::class, inversedBy: 'rooms')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Establishment $establishment = null;
 
     #[ORM\OneToMany(mappedBy: 'room', targetEntity: Event::class)]
     private Collection $events;
+
+    #[ORM\OneToMany(mappedBy: 'room', targetEntity: Image::class)]
+    private Collection $images;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -30,6 +32,23 @@ class Room
     #[ORM\Column]
     private ?int $establishment_id = null;
 
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function setImages(Collection $images): static
+    {
+        $this->images = $images;
+        return $this;
+    }
+
+    public function addImage(Image $image): static
+    {
+        $this->images->add($image);
+
+        return $this;
+    }
     public function getEvents(): Collection {
         return $this->events;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Room;
 use App\Form\RoomType;
 use App\Repository\RoomRepository;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Constraints\Collection;
 
 class RoomController extends AbstractController
 {
@@ -32,11 +34,30 @@ class RoomController extends AbstractController
 
         $room_form->handleRequest($request);
 
-        if ($room_form->isSubmitted()) {
+        if ($room_form->isSubmitted() && $room_form->isValid()) {
+
+            $images = $room_form->get('images')->getData();
+
+            foreach ($images as $image) {
+                $fileName = md5(uniqid()) . '.' . $image->guessExtension();
+                $image->move(
+                    $this->getParameter('uploads_directory'),
+                    $fileName
+                );
+
+                $image = new Image();
+                $image->setPath($fileName);
+                $image->setRoom($room);
+
+                $entityManager->persist($image);
+
+            }
+
             $entityManager->persist($room);
             $entityManager->flush();
+
             $this->addFlash('success', 'Salle bien créée.');
-            return $this->redirectToRoute('app_establishment');
+            return $this->redirectToRoute('app_room');
         }
 
         $formView = $room_form->createView();

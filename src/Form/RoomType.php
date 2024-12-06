@@ -6,10 +6,12 @@ use App\Entity\Establishment;
 use App\Entity\Room;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoomType extends AbstractType
@@ -38,6 +40,14 @@ class RoomType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mt-3',
                 ],
+            ])
+            ->add('images', FileType::class, [
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Image',
+                'attr' => ['class' => 'form-control', 'accept' => '.jpeg, .jpg, .png'],
+                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('Valider', SubmitType::class, [
                 'attr' => [

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message envoyé{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Nom :</strong> {{ contact.name }}</h5>
+                <p class="card-text"><strong>Email :</strong> {{ contact.email }}</p>
+                <p class="card-text"><strong>Message :</strong> {{ contact.description }}</p>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="{{ path('app_contact') }}" class="btn btn-primary btn-lg">Retour au formulaire</a>
+        </div>
+    </div>
+{% endblock %}

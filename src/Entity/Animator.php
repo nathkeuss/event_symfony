@@ -29,11 +29,13 @@ class Animator
     #[ORM\OneToMany(mappedBy: 'animator', targetEntity: Event::class)]
     private Collection $events;
 
-    public function getEvents(): Collection {
+    public function getEvents(): Collection
+    {
         return $this->events;
     }
 
-    public function setEvents(Collection $events): self {
+    public function setEvents(Collection $events): self
+    {
         $this->events = $events;
         return $this;
     }
@@ -70,6 +72,10 @@ class Animator
     public function getPhone(): ?string
     {
         return $this->phone;
+    }
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     public function setPhone(string $phone): static

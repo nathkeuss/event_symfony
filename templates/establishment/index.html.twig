@@ -24,7 +24,8 @@
                     <h3>Liste des salles :</h3>
                     {% for room in establishment.rooms %}
                         <ul>
-                            <li class="btn btn-success">{{ room.name }} avec <span class="text-danger">{{ room.capacity }} places. </span></li>
+                            <li class="btn btn-success">{{ room.name }} avec <span
+                                        class="text-danger">{{ room.capacity }} places. </span></li>
                         </ul>
                     {% endfor %}
                     <p class="card-text">{{ establishment.description }}</p>
