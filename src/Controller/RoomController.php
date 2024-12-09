@@ -95,6 +95,14 @@ class RoomController extends AbstractController
     {
         $room = $roomRepository->find($id);
 
+        foreach ($room->getImages() as $image) {
+            $imagePath = $this->getParameter('uploads_directory') . '/' . $image->getPath();
+
+            unlink($imagePath);
+
+            $entityManager->remove($image);
+        }
+
         $entityManager->remove($room);
         $entityManager->flush();
 

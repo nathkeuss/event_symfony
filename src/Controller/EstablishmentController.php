@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Establishment;
 use App\Form\EstablishmentType;
 use App\Repository\EstablishmentRepository;
+use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,7 +73,19 @@ class EstablishmentController extends AbstractController
     #[Route('/establishment/{id}', name: 'delete_establishment')]
     public function deleteEstablishment(int $id, EstablishmentRepository $establishmentRepository, EntityManagerInterface $entityManager): Response
     {
+
         $establishment = $establishmentRepository->find($id);
+
+        foreach ($establishment->getRooms() as $room) {
+            //boucle sur les images de la salle
+            foreach ($room->getImages() as $image) {
+                //récupe le chemin de l'image et la supprime
+                $imagePath = $this->getParameter('uploads_directory') . '/' . $image->getPath();
+                unlink($imagePath);
+                //supprime la salle une fois l'image supprimée
+                $entityManager->remove($room);
+            }
+        }
 
         $entityManager->remove($establishment);
         $entityManager->flush();

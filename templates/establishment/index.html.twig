@@ -23,10 +23,12 @@
                     <h4 class="card-subtitle mb-2 text-muted">{{ establishment.address }}</h4>
                     <h3>Liste des salles :</h3>
                     {% for room in establishment.rooms %}
+                        <a href="{{ path('app_room') }}">
                         <ul>
                             <li class="btn btn-success">{{ room.name }} avec <span
                                         class="text-danger">{{ room.capacity }} places. </span></li>
                         </ul>
+                        </a>
                     {% endfor %}
                     <p class="card-text">{{ establishment.description }}</p>
                     <div class="d-flex">
